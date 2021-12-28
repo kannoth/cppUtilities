@@ -1,0 +1,6 @@
+[submodule "libs/libs/boost"]
+	path = libs/libs/boost
+	url = https://github.com/boostorg/boost
+[submodule "libs/boost"]
+	path = libs/boost
+	url = https://github.com/boostorg/boost
