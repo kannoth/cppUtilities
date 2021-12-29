@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.h": "cpp",
+        "*.hpp": "cpp",
+        "*.cc": "cpp",
+        "thread": "cpp",
+        "filesystem": "cpp",
+        "*.ipp": "cpp"
+    }
+}

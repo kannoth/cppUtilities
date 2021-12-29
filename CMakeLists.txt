@@ -6,7 +6,7 @@ set (PROJECT_SHORTNAME "cru")
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(CRU_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include/cru")
+set(CRU_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 if(MSVC)
     add_compile_options(/W3 /WX /std:c++11)

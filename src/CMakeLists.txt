@@ -1,7 +1,7 @@
 set (TCP_LIB_SUFFIX "tcp")
 set (TCP_LIB_NAME  "tcp_${TCP_LIB_SUFFIX}")
 
-set (TCP_INCLUDE_DIR "${CRU_INCLUDE_DIR}/net/comm/tcp")
+set (TCP_INCLUDE_DIR "${CRU_INCLUDE_DIR}/cru/net/comm/tcp")
 
 add_library(${TCP_LIB_NAME})
 
