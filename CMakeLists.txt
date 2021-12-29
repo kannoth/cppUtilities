@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0...3.12)
 
-project(cppUtils)
+project(CRU)
 set (PROJECT_NAME "CPP reusable utilities")
 set (PROJECT_SHORTNAME "cru")
 
