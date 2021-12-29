@@ -1,3 +1,6 @@
+#ifndef CRU_NET_COMM_TCP_I_SERVER_HPP
+#define CRU_NET_COMM_TCP_I_SERVER_HPP
+
 namespace cru {
 namespace net {
 namespace comm {
@@ -17,3 +20,5 @@ class i_server {
 }  // namespace comm
 }  // namespace net
 }  // namespace cru
+
+#endif /* CRU_NET_COMM_TCP_I_SERVER_HPP */

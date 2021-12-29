@@ -4,15 +4,17 @@ project(CRU)
 set (PROJECT_NAME "CPP reusable utilities")
 set (PROJECT_SHORTNAME "cru")
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 set(CRU_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 if(MSVC)
-    add_compile_options(/W3 /WX /std:c++11)
+    add_compile_options(/W3 /WX /std:c++14)
 else()
     add_compile_options(-W -Wall )#-Werror)
 endif()
+
+include_directories("${CRU_INCLUDE_DIR}")
 
 #libs
 add_subdirectory(libs/boost)

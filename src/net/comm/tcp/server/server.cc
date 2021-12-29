@@ -5,7 +5,8 @@ namespace net {
 namespace comm {
 namespace tcp {
 
-server::server(int port) {
+server::server(int port, std::function<void(std::vector<char>)> data_callback)
+    : data_callback_(data_callback) {
   boost::asio::io_context io_context;
 
   acceptor_ = std::make_unique<ip::tcp::acceptor>(

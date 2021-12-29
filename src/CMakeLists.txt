@@ -17,6 +17,7 @@ target_sources(${TCP_LIB_NAME}
     ${TCP_INCLUDE_DIR}/client/client.hpp
     ${TCP_INCLUDE_DIR}/server/api/i_server.hpp
     ${TCP_INCLUDE_DIR}/server/server.hpp
+    ${TCP_INCLUDE_DIR}/server/session.hpp
 )
 
 add_library(${PROJECT_SHORTNAME}::${TCP_LIB_SUFFIX} ALIAS ${TCP_LIB_NAME})
