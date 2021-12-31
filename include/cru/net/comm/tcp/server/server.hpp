@@ -40,6 +40,7 @@ class server final : public api::i_server {
 
  private:
   std::function<void(std::time_t time, std::vector<char>)> data_callback_;
+  boost::asio::io_context io_context_;
   std::unique_ptr<ip::tcp::acceptor> acceptor_;
 };
 

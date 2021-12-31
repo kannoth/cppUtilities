@@ -7,10 +7,9 @@ namespace tcp {
 
 server::server(int port, std::function<void(std::time_t time, std::vector<char>)> data_callback)
     : data_callback_(data_callback) {
-  boost::asio::io_context io_context;
 
   acceptor_ = std::make_unique<ip::tcp::acceptor>(
-      io_context, ip::tcp::endpoint(ip::tcp::v4(), port));
+      io_context_, ip::tcp::endpoint(ip::tcp::v4(), port));
 
   this->doAccept();
 }
