@@ -17,7 +17,9 @@ namespace tcp {
 
 class server final : public api::i_server {
  public:
-  server(int port, std::function<void(std::vector<char>)> data_callback);
+  server(
+      int port,
+      std::function<void(std::time_t time, std::vector<char>)> data_callback);
   ~server() = default;
 
   virtual void start() override;
@@ -29,7 +31,7 @@ class server final : public api::i_server {
     acceptor_->async_accept(
         [this](boost::system::error_code ec, ip::tcp::socket socket) {
           if (!ec) {
-            std::make_shared<session>(std::move(socket))->start();
+            std::make_shared<session>(std::move(socket), data_callback_)->start();
           }
 
           doAccept();
@@ -37,7 +39,7 @@ class server final : public api::i_server {
   }
 
  private:
-  std::function<void(std::vector<char>)> data_callback_;
+  std::function<void(std::time_t time, std::vector<char>)> data_callback_;
   std::unique_ptr<ip::tcp::acceptor> acceptor_;
 };
 
