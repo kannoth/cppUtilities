@@ -19,6 +19,7 @@ include_directories("${CRU_INCLUDE_DIR}")
 #libs
 add_subdirectory(libs/boost)
 #sources
-add_subdirectory(src)
+add_subdirectory(src/net)
+add_subdirectory(src/utils)
 #tests
 #add_subdirectory(test)
