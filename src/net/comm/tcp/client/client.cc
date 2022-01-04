@@ -18,14 +18,10 @@ void client::connect() {
 
 void client::disconnect() {}
 
-void client::send(const std::vector<char> data) {
-  size_t i(0);
-  std::for_each(data.begin(), data.end(), [&](const char& c) {
-    request_buffer_[i] = c;
-    ++i;
-  });
+void client::send(const std::string& data) {
+
   boost::asio::write(socket_,
-                     boost::asio::buffer(request_buffer_, data.size()));
+                     boost::asio::buffer(data, data.size()));
 }
 }
 }
