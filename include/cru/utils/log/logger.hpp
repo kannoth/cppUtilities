@@ -87,7 +87,13 @@ class logger {
     }
   }
 
-  std::string timestamp();
+  std::string timestamp() {
+    std::ostringstream oss;
+    auto now{
+        std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())};
+    oss << std::put_time(localtime(&now), "%F %T");
+    return "[" + oss.str() + "]";
+  }
 };
 
 template <typename... Args>
