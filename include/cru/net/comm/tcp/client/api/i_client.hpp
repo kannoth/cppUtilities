@@ -2,7 +2,7 @@
 #ifndef CRU_NET_COMM_TCP_I_CLIENT_HPP
 #define CRU_NET_COMM_TCP_I_CLIENT_HPP
 
-#include <vector>
+#include <string>
 
 namespace cru {
 namespace net {
@@ -15,7 +15,7 @@ public:
   virtual ~i_client() = default;
   virtual void connect() = 0;
   virtual void disconnect() = 0;
-  virtual void send(const std::vector<char> data);
+  virtual void send(const std::string& data) = 0;
 };
 
 }

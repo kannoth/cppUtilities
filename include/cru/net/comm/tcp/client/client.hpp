@@ -16,7 +16,7 @@ public:
   client(const std::string& endpoint, int port);
   virtual void connect() override;
   virtual void disconnect() override;
-  virtual void send(const std::vector<char> data) override;
+  virtual void send(const std::string& data) override;
 
   private:
     boost::asio::io_context io_context_;

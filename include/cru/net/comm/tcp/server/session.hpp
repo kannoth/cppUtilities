@@ -25,7 +25,7 @@ class session : public std::enable_shared_from_this<session> {
  public:
 
   session(ip::tcp::socket socket,
-          std::function<void(std::time_t time, std::vector<char>)>
+          std::function<void(std::time_t, const std::string&)>
               session_callback)
       : socket_(std::move(socket)), session_callback_(session_callback) {}
 
@@ -43,13 +43,13 @@ class session : public std::enable_shared_from_this<session> {
             auto time = system_clock::to_time_t(point);
             
             if(session_callback_)
-              session_callback_(time, std::vector<char>());
+              session_callback_(time, std::string(data_, length));
           }
         });
   }
 
   ip::tcp::socket socket_;
-  std::function<void(std::time_t time, std::vector<char>)> session_callback_;
+  std::function<void(std::time_t time, const std::string&)> session_callback_;
   enum { max_length = 1024 };
   char data_[max_length];
 };
