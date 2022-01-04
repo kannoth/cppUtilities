@@ -16,4 +16,4 @@ target_sources(${UTILS_LIB_NAME}
 )
 
 add_library(${PROJECT_SHORTNAME}::${UTILS_LIB_SUFFIX} ALIAS ${UTILS_LIB_NAME})
-target_link_libraries(${UTILS_LIB_NAME} fmt::fmt)
+target_link_libraries(${UTILS_LIB_NAME} fmt)

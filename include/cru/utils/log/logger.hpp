@@ -7,6 +7,9 @@
 #include <iomanip>
 #include <vector>
 
+#include <fmt/core.h>
+#include <fmt/color.h>
+
 namespace cru {
 namespace utils {
 
@@ -26,12 +29,12 @@ class logger {
  private:
   std::string m_entity;
   std::ostream& m_stream;
-  severity m_severity;
+  severity severity_;
 
  public:
   logger(const std::string& t_entity, std::ostream& t_stream,
          severity t_severity)
-      : m_entity(t_entity), m_stream(t_stream), m_severity(t_severity) {}
+      : m_entity(t_entity), m_stream(t_stream), severity_(t_severity) {}
 
   logger(const std::string& t_entity, severity t_severity)
       : logger(t_entity, std::cout, t_severity) {}
@@ -64,6 +67,9 @@ class logger {
   void errors(Args&&... t_args) noexcept;
 
   template <typename... Args>
+  void warns(Args&&... t_args) noexcept;
+
+  template <typename... Args>
   void fatals(Args&&... t_args) noexcept;
 
   template <typename Arg, typename... Args>
@@ -78,6 +84,7 @@ class logger {
  private:
   template <typename Arg, typename... Args>
   constexpr void print(Arg&& t_arg, Args&&... t_args) noexcept {
+#ifdef PRINT_TO_STD_OUT
     if
       constexpr(!sizeof...(Args)) m_stream << t_arg;
     else {
@@ -85,6 +92,15 @@ class logger {
       print(std::forward<Args>(t_args)...);
       fflush(stdout);
     }
+#else
+    if
+      constexpr(!sizeof...(Args)) fmt::print(t_arg);
+    else {
+      fmt::print(t_arg);
+      fmt::print(" ");
+      print(std::forward<Args>(t_args)...);
+    }
+#endif
   }
 
   std::string timestamp() {
@@ -98,33 +114,76 @@ class logger {
 
 template <typename... Args>
 inline void logger::infos(Args&&... t_args) noexcept {
+  if (severity_ >= severity::info) return;
+#ifdef PRINT_TO_STD_OUT
   log_("[INFO]", std::forward<Args>(t_args)...);
+#else
+  fmt::print(fg(fmt::color::green), timestamp() + "[INFO]");
+  log_("", std::forward<Args>(t_args)...);
+#endif
 }
 
 template <typename... Args>
 inline void logger::traces(Args&&... t_args) noexcept {
+  if (severity_ >= severity::trace) return;
+#ifdef PRINT_TO_STD_OUT
   log_("[TRACE]", std::forward<Args>(t_args)...);
+#else
+  fmt::print(fg(fmt::color::yellow), timestamp() + "[TRACE]");
+  log_("", std::forward<Args>(t_args)...);
+#endif
 }
 
 template <typename... Args>
 inline void logger::debugs(Args&&... t_args) noexcept {
+  if (severity_ >= severity::debug) return;
+#ifdef PRINT_TO_STD_OUT
   log_("[DEBUG]", std::forward<Args>(t_args)...);
+#else
+  fmt::print(fg(fmt::color::deep_sky_blue), timestamp() + "[DEBUG]");
+  log_("", std::forward<Args>(t_args)...);
+#endif
 }
 
 template <typename... Args>
 inline void logger::errors(Args&&... t_args) noexcept {
+  if (severity_ >= severity::error) return;
+#ifdef PRINT_TO_STD_OUT
   log_("[ERROR]", std::forward<Args>(t_args)...);
+#else
+  fmt::print(fg(fmt::color::red), timestamp() + "[ERROR]");
+  log_("", std::forward<Args>(t_args)...);
+#endif
+}
+
+template <typename... Args>
+inline void logger::warns(Args&&... t_args) noexcept {
+  if (severity_ >= severity::warn) return;
+#ifdef PRINT_TO_STD_OUT
+  log_("[WARNING]", std::forward<Args>(t_args)...);
+#else
+  fmt::print(fg(fmt::color::orange), timestamp() + "[WARNING]");
+  log_("", std::forward<Args>(t_args)...);
+#endif
 }
 
 template <typename... Args>
 inline void logger::fatals(Args&&... t_args) noexcept {
+  if (severity_ >= severity::fatal) return;
+#ifdef PRINT_TO_STD_OUT
   log_("[FATAL]", std::forward<Args>(t_args)...);
+#else
+  fmt::print(fg(fmt::color::hot_pink), timestamp() + "[FATAL]");
+#endif
+  log_("", std::forward<Args>(t_args)...);
 }
 
 template <typename Arg, typename... Args>
 inline void logger::log_(Arg&& t_severity, Args&&... t_args) noexcept {
+#ifdef PRINT_TO_STD_OUT
   print(timestamp());
   print(t_severity);
+#endif
   print("[");
   print(m_entity);
   print("] ");

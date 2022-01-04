@@ -12,7 +12,7 @@ target_sources( ${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
-target_link_libraries(${PROJECT_NAME} cru::net cru::utils gtest tests::main)
+target_link_libraries(${PROJECT_NAME} cru::net cru::utils fmt::fmt gtest tests::main)
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME})

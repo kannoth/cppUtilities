@@ -21,4 +21,4 @@ target_sources(${NET_LIB_NAME}
 )
 
 add_library(${PROJECT_SHORTNAME}::${NET_LIB_SUFFIX} ALIAS ${NET_LIB_NAME})
-target_link_libraries(${NET_LIB_NAME} Boost::asio Boost::align)
+target_link_libraries(${NET_LIB_NAME} fmt::fmt Boost::asio Boost::align)
